@@ -1,0 +1,24 @@
+---
+- name: Create a new EC2 instance
+  hosts: localhost
+  gather_facts: False
+
+  tasks:
+
+    - name: Create an ec2 instance
+      ec2:
+         key_name: centos
+         group: CentOS 7 -x86_64- - with Updates HVM-CentOS 7-2009-AutogenByAWSMP-2  # security group name
+         instance_type: t2.micro
+         image: ami-02358d9f5245918a3
+         wait: true
+         region: us-east-1
+         aws_zone: us-east-1d
+         count: 1  # default
+         count_tag:
+            Name: Mohan centos server
+         instance_tags:
+            Name: Mohan centos server
+         vpc_subnet_id: subnet-044630782cb1f220d
+         assign_public_ip: yes
+      register: ec2
